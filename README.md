@@ -1,2 +1,2 @@
-# rust_projects
+# Rust Projects
 A place for all my rust projects
