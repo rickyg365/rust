@@ -1,7 +1,13 @@
 extern crate sdl2;
 extern crate gl;
 
+// Raw dog it
+// gl::types::GLfloat
+// alias it
 // type gl_float = gl::types::GLfloat;
+// or 
+// include all the OpenGL type aliases
+// use gl::types::*;
 
 
 fn main() {
