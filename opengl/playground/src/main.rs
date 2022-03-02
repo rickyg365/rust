@@ -1,11 +1,13 @@
 extern crate sdl2;
 extern crate gl;
 
+// type gl_float = gl::types::GLfloat;
+
+
 fn main() {
     // Initialize sdl
     // The _(underscore)  silences the warning about unused value
     let sdl = sdl2::init().unwrap();
-    println!("[ SDL Started ]");
 
     // Initialize video subsystem
     let video_subsystem = sdl.video().unwrap();
@@ -17,11 +19,11 @@ fn main() {
             .unwrap();
 
     // Set up OpenGL, needs .opengl() call on window struct above
-    let gl_context = window.gl_create_context().unwrap();
-    let gl = gl::load_with(|s| video_subsystem.gl_get_proc_address(s) as *const std::os::raw::c_void);
+    let _gl_context = window.gl_create_context().unwrap();
+    let _gl = gl::load_with(|s| video_subsystem.gl_get_proc_address(s) as *const std::os::raw::c_void);
 
     unsafe {
-        gl::ClearColor(0.3, 0.3, 0.5, 1.0);
+        gl::ClearColor(0.3, 0.3, 0.5, 0.8);
     }
 
     let mut event_pump = sdl.event_pump().unwrap();
