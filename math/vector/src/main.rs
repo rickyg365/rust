@@ -35,8 +35,8 @@ impl ops::Add<Vector2D> for Vector2D {
     fn add(self, other: Vector2D) -> Vector2D {
         // println!("> Complex[{}+{}i].add(Complex[{}+{}i]) was called", self.real, self.imaginary, other.real, other.imaginary);
         Vector2D { 
-            i: self.real + other.real, 
-            j: self.imaginary + other.imaginary 
+            i: self.i + other.i, 
+            j: self.j + other.j 
         }
     }
 }
@@ -71,9 +71,9 @@ impl ops::Div<Vector2D> for Vector2D {
         let new_numerator = self*other_prime;
         let new_denomenator = other*other_prime;
 
-        Complex { 
-            real: new_numerator.real/new_denomenator.real,
-            imaginary: new_numerator.imaginary/new_denomenator.real
+        Vector2D { 
+            i: new_numerator.i/new_denomenator.i,
+            j: new_numerator.j/new_denomenator.i
         }
     }
 }
@@ -81,15 +81,15 @@ impl ops::Div<Vector2D> for Vector2D {
 
 fn main() {
     // num_data
-    let c1:Complex = Complex { real: 2.0, imaginary: 3.0 };
+    let c1:Vector2D = Vector2D { i: 2.0, j: 3.0 };
     println!("\nc1 => {}", c1);
     // println!("Debug: {:?}", c1);
     
-    let c2:Complex = Complex { real: 1.0, imaginary: 1.0 };
+    let c2:Vector2D = Vector2D { i: 1.0, j: 1.0 };
     println!("\nc2 => {}", c2);
     // println!("Debug: {:?}", c2);
     
-    let c3:Complex = Complex { real: 2.0, imaginary: 2.0 };
+    let c3:Vector2D = Vector2D { i: 2.0, j: 2.0 };
     println!("\nc3 => {}", c3);
     // println!("Debug: {:?}", c3);
 
@@ -101,29 +101,29 @@ fn main() {
     // Check if value is still there
     // println!("\nc3: {}", c3);
 
-    assert_eq!(c13, Complex { real: 4.0, imaginary: 5.0 });
-    assert_eq!(c23, Complex { real: 3.0, imaginary: 3.0 });
+    assert_eq!(c13, Vector2D { i: 4.0, j: 5.0 });
+    assert_eq!(c23, Vector2D { i: 3.0, j: 3.0 });
 
     println!("\nAdd c1 + c3: {}", c13);
     println!("\nAdd c2 + c3: {}", c23);
 
 
     // MULTIPLICATION
-    let m1 = Complex { real: 3.0, imaginary: 2.0 };
-    let m2 = Complex { real: 5.0, imaginary: 6.0 };
+    let m1 = Vector2D { i: 3.0, j: 2.0 };
+    let m2 = Vector2D { i: 5.0, j: 6.0 };
     
     let product = m1*m2;
 
-    assert_eq!(product, Complex { real: 3.0, imaginary: 28.0 });
-    println!("\nProduct: {}", product);
+    assert_eq!(product, Vector2D { i: 3.0, j: 28.0 });
+    println!("\nProduct m1*m2: {}", product);
 
     // DIVISION
-    let d1 = Complex { real: 3.0, imaginary: 2.0 };
-    let d2 = Complex { real: 4.0, imaginary: -5.0 };
+    let d1 = Vector2D { i: 3.0, j: 2.0 };
+    let d2 = Vector2D { i: 4.0, j: -5.0 };
     
     let quotient = d1/d2;
 
-    assert_eq!(quotient, Complex { real: 0.048780486, imaginary: 0.5609756 });
+    assert_eq!(quotient, Vector2D { i: 0.048780486, j: 0.5609756 });
     println!("\nQuotient: {}", quotient);
 
 }
