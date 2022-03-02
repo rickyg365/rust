@@ -1,0 +1,54 @@
+// What does the “unsafe” mean in the context of Rust? In short - no segfaults. 
+// In Rust it is unsafe to dereference a raw pointer or call a non-rust function. 
+// OpenGL is non-rust, so we will have lots of unsafe fun.
+
+// Why “unsafe” exists
+// It may seem strange that “unsafe” exists at all. 
+// The reason for it is quite simple: it allows us to deal with complicated stuff once, inside a function with a safe API, 
+// and then completely forget about it when we become the users of that API. 
+// In other words, it moves the responsibility of correct API usage to API implementer.
+
+On windows Rust is available with two toolchains: GNU (compatible with mingw C libraries), and MSVC (compatible with Microsoft C++ C libraries). 
+We will use MSVC toolchain.
+
+Install the MSVC toolchain using rustup (may be already installed):
+rustup install stable-x86_64-pc-windows-msvc
+
+rustup default stable-msvc
+
+
+
+
+
+A window
+To create a window that works across multiple platforms, 
+as well as provides such niceties as OpenGL context or multi-platform input, 
+we will use SDL2.
+
+
+The SDL context type. Initialize with sdl2::init().
+
+From a thread-safety perspective, Sdl represents the main thread. 
+As such, Sdl is a useful type for ensuring that SDL types 
+that can only be used on the main thread are initialized that way.
+
+
+The init function signature is pub fn init() -> Result<Sdl, String>, it returns Result<Sdl, String>. 
+
+If initialization was successful, the Result contains Sdl struct as an Ok value, 
+otherwise it contains the String as Err value.
+
+Notice that there is no explicit SDL_Quit(), but it is still executed automatically at the end of the fn main.
+
+Rust language does not have garbage collector, instead variables are cleaned up as they leave scopes. 
+Sdl struct has a drop function that is executed before the clean up, and that’s where the SDL_Quit() is invoked.
+
+The story is not complete here however, because Sdl is secretly internally reference-counted. 
+Therefore you need not to concern yourself of keeping it around, it will keep SDL alive as long as any other sdl object has a clone of it.
+
+
+had to install apt-get install xorg-dev
+or else got no video driver error (wsl2 - ubuntu)
+
+
+
