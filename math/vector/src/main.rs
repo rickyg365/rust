@@ -15,6 +15,17 @@ impl Vector2D {
             j: -1.0*self.j
         }
     }
+
+    // Dot Product
+    fn dot_product(&self, other: Vector2D) -> Result<f32, String> {
+        let result = self.i * other.i  +  self.j * other.j;
+        let is_not_valid = &result.is_nan();
+
+        match is_not_valid {    
+            false => Ok(result),
+            true => Err("yuh fucked up".to_string()),
+        }
+    }
 }
 
 
@@ -41,26 +52,19 @@ impl ops::Add<Vector2D> for Vector2D {
     }
 }
 
-// Implement * operator
-impl ops::Mul<Vector2D> for Vector2D {
-    type Output = Vector2D;
+// Dot Product
+// impl ops::Mul<Vector2D> for Vector2D {
+    
+//     type Output = Vector2D;
 
-    fn mul(self, other: Vector2D) -> Vector2D {
-        // FOIL
-        let f = self.i*other.i;
-        let o = self.i*other.j;
-        let i = other.i*self.j;
-        let l = self.j*other.j;
-
-        let final_i = f - l;
-        let final_j = o + i;
-
-        Self { 
-            i: final_i,
-            j: final_j
-        }
-    }
-}
+//     fn mul(self, other: Vector2D) -> f32 {
+//         // Dot
+//         let final_i = self.i*other.i;
+//         let final_j = self.j*other.j;
+        
+//         final_i + final_j
+//     }
+// }
 
 impl ops::Div<Vector2D> for Vector2D {
     type Output = Vector2D;
